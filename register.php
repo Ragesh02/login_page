@@ -12,6 +12,22 @@
         $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
         $contact = $_POST['contact'];
 
+        // Validate email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "Invalid email address";
+            exit;
+        }
+
+        // Check if email already exists
+        $check_query = "SELECT * FROM user WHERE email = '$email'";
+        $res = mysqli_query($connect, $check_query  );
+
+        if ($res->num_rows > 0) {
+            // echo "Email address is already registered";
+            header("Location: register.php?message=Email address is already registered");
+            exit;
+        }        
+
         $query = "INSERT INTO user (id, name, email, password, contact)
         VALUES (NULL, '$name', '$email', '$password', '$contact')";
 
@@ -35,9 +51,16 @@
             <label>Name</label>
             <input type="text" name="name" class="form-control" id="name" required>
         </div>
+        <?php
+            if(isset($_GET['message'])){
+                echo "<div class='alert alert-warning alert-dismissible fade show'>";
+                    echo $_GET['message'];
+                echo "</div>";
+            }
+        ?>
         <div class="form-group">
             <label>Email</label>
-            <input type="text" name="email" class="form-control" id="email" required>
+            <input type="email" name="email" class="form-control" id="email" required>
         </div>
         <div class="form-group">
             <label>Password</label>
