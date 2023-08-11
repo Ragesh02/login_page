@@ -14,13 +14,13 @@
 
         // Validate email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo "Invalid email address";
+            header("Location: register.php?message=Invalid email address");
             exit;
         }
 
         // Check if email already exists
         $check_query = "SELECT * FROM user WHERE email = '$email'";
-        $res = mysqli_query($connect, $check_query  );
+        $res = mysqli_query($connect, $check_query);
 
         if ($res->num_rows > 0) {
             // echo "Email address is already registered";
@@ -45,7 +45,7 @@
     <h2>Register Page</h2>
 </nav>
 
-<div class="container" style="width:500px">
+<div class="container" style="width:500px;">
     <form action="register.php" method = "POST">
         <div class="form-group">
             <label>Name</label>
@@ -53,8 +53,11 @@
         </div>
         <?php
             if(isset($_GET['message'])){
-                echo "<div class='alert alert-warning alert-dismissible fade show'>";
+                echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
                     echo $_GET['message'];
+                    echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+                        echo '<span aria-hidden="true">&times;</span>';
+                    echo '</button>';
                 echo "</div>";
             }
         ?>
