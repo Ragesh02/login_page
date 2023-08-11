@@ -13,7 +13,7 @@
             echo "</div>";
         }
 
-        echo "<div>Email: " . $_SESSION['email'] . "</div>";
+        echo "<div>User_Email: <em>" . $_SESSION['email'] . "</em></div>";
         // Check if the user is logged in
         if (!isset($_SESSION["email"])) {
         // Redirect to the login page or display an error message
@@ -22,7 +22,7 @@
         }
     ?>
 
-    <h1>Hello Dear User, You are logged in the Dashboard</h1>
+    <h2>Hello Dear User, You are logged in the Dashboard</h2>
     <a href="logout.php" class="btn btn-success mt-3">Logout</a>
     
 </div>
