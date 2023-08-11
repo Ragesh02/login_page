@@ -16,9 +16,7 @@
         if (password_verify($password, $row['password'])) {
 
             $_SESSION["email"] = $email;
-
             header("Location: dashboard.php?message= Successfully Logged In");
-
             exit;
         }
         else{
@@ -38,9 +36,13 @@
 <div class="container" style="width:500px">
 
     <?php
+    
         if(isset($_GET['message'])){
-            echo "<div class='alert alert-warning alert-dismissible fade show'>";
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>";
                 echo $_GET['message'];
+                echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+                    echo '<span aria-hidden="true">&times;</span>';
+                echo '</button>';
             echo "</div>";
         }
 
